@@ -1,16 +1,19 @@
 radio.onReceivedNumber(function (receivedNumber) {
-    currentRSSI = radio.receivedPacket(RadioPacketProperty.SignalStrength)
-    if (currentRSSI > lastRSSI) {
-        basic.showArrow(ArrowNames.North)
-    } else {
-        basic.showArrow(ArrowNames.South)
+    if (receivedNumber == radioNumber) {
+        currentRSSI = radio.receivedPacket(RadioPacketProperty.SignalStrength)
+        if (currentRSSI > lastRSSI) {
+            basic.showArrow(ArrowNames.North)
+        } else {
+            basic.showArrow(ArrowNames.South)
+        }
+        lastRSSI = currentRSSI
     }
-    lastRSSI = currentRSSI
 })
 let currentRSSI = 0
 let lastRSSI = 0
-radio.setGroup(1)
-let radioNumber = 1
+let radioNumber = 0
+radioNumber = 1
+radio.setGroup(radioNumber)
 lastRSSI = -100
 currentRSSI = -100
 basic.forever(function () {
