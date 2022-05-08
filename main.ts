@@ -3,11 +3,19 @@ radio.onReceivedNumber(function (receivedNumber) {
         currentRSSI = radio.receivedPacket(RadioPacketProperty.SignalStrength)
         if (currentRSSI > lastRSSI) {
             basic.showArrow(ArrowNames.North)
-        } else {
+        } else if (currentRSSI < lastRSSI) {
             basic.showArrow(ArrowNames.South)
+        } else {
+            basic.showIcon(IconNames.Heart)
         }
         lastRSSI = currentRSSI
     }
+})
+input.onButtonPressed(Button.A, function () {
+    basic.showNumber(currentRSSI)
+})
+input.onButtonPressed(Button.B, function () {
+    basic.showNumber(currentRSSI)
 })
 let currentRSSI = 0
 let lastRSSI = 0
